@@ -3,6 +3,10 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+@app.route("/")
+def index():
+    return redirect(url_for("payroll"))  # redirects "/" to "/payroll"
+
 # --- Robust time parsing -----------------------------------------------
 def parse_time(text: str):
     """Try multiple formats; accept things like '8:30 AM', '8am', '0830PM', '21:15'."""
