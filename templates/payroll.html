@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payroll Calculator (4 Subjects)</title>
+  <style>
+    :root { --bg:#0b1020; --card:#121936; --ink:#eef2ff; --muted:#a3b0d4; --accent:#66aaff; --line:rgba(255,255,255,.12); }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Segoe UI,Roboto,Arial,sans-serif;padding:28px}
+    h1{margin:0 0 8px;color:var(--accent);text-align:center;text-shadow:0 0 6px #0040ff}
+    p.helper{margin:4px 0 18px;text-align:center;color:var(--muted)}
+    form{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1150px;margin:0 auto}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:14px;padding:16px}
+    .card h3{margin:0 0 10px;color:var(--accent);text-align:center}
+    label{display:block;margin:10px 0 6px;color:var(--muted);font-size:13px}
+    input[type=text]{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:#0f1633;color:var(--ink);text-align:center}
+    input::placeholder{color:#8ea1cc}
+    .actions{grid-column:1/-1;display:flex;justify-content:center;margin-top:8px}
+    button{background:var(--accent);color:#00112e;border:0;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer}
+    table{width:95%;max-width:1100px;margin:22px auto;border-collapse:collapse;background:#111a33;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+    th,td{padding:10px;border-top:1px solid var(--line);text-align:center}
+    th{background:#1a244d;color:#9ec3ff}
+    tr:nth-child(even){background:#0f1733}
+    .errors{max-width:1100px;margin:14px auto 0;color:#ffd6d6;background:#4a1f1f;border:1px solid #8b3b3b;padding:10px;border-radius:10px}
+    .errors li{margin:4px 0}
+  </style>
+</head>
+<body>
+  <h1>Payroll Calculator (4 Subjects)</h1>
+  <p class="helper">Type times like <b>8:30 AM</b>, <b>8 AM</b>, <b>0830PM</b>, or <b>21:15</b>. Overnight (e.g., 11 PM → 2 AM) is supported.</p>
+
+  <form method="POST" action="">
+    {% for i in range(1,5) %}
+    <div class="card">
+      <h3>Subject {{ i }}</h3>
+      <label for="start{{i}}">Start time</label>
+      <input type="text" id="start{{i}}" name="start{{i}}" placeholder="e.g. 8:30 AM">
+      <label for="end{{i}}">End time</label>
+      <input type="text" id="end{{i}}" name="end{{i}}" placeholder="e.g. 5:15 PM">
+    </div>
+    {% endfor %}
+    <div class="actions"><button type="submit">Calculate</button></div>
+  </form>
+
+  {% if errors %}
+  <ul class="errors">
+    {% for e in errors %}<li>{{ e }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if results %}
+  <table>
+    <tr>
+      <th>Subject</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Hours</th>
+      <th>Pay @ $15/hr</th>
+      <th>Pay @ $18/hr</th>
+    </tr>
+    {% for s, start, end, h, p15, p18 in results %}
+    <tr>
+      <td>{{ s }}</td>
+      <td>{{ start }}</td>
+      <td>{{ end }}</td>
+      <td>{{ '%.2f'|format(h) }}</td>
+      <td>${{ '%.2f'|format(p15) }}</td>
+      <td>${{ '%.2f'|format(p18) }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+</body>
+</html>
