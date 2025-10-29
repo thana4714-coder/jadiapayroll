@@ -50,8 +50,8 @@
           <input type="number" step="0.01" id="cash_card_claim" name="cash_card_claim" placeholder="e.g. 5.00" />
         </div>
         <div>
-          <label for="erp_claim">ERP Claim</label>
-          <input type="number" step="0.01" id="erp_claim" name="erp_claim" placeholder="e.g. 2.50" />
+          <label for="taxi_claim">Taxi Claim</label>
+          <input type="number" step="0.01" id="taxi_claim" name="taxi_claim" placeholder="e.g. 2.50" />
         </div>
       </div>
 
@@ -75,7 +75,7 @@
         <th>End</th>
         <th>Hours</th>
         <th>Cash Card Claim</th>
-        <th>ERP Claim</th>
+        <th>Taxi Claim</th>
         <th>Pay @ $15/hr (incl. claims)</th>
         <th>Pay @ $18/hr (incl. claims)</th>
       </tr>
@@ -85,7 +85,7 @@
         <td>{{ results.end }}</td>
         <td>{{ '%.2f'|format(results.hours) }}</td>
         <td>${{ '%.2f'|format(results.cash) }}</td>
-        <td>${{ '%.2f'|format(results.erp) }}</td>
+        <td>${{ '%.2f'|format(results.taxi) }}</td>
         <td>${{ '%.2f'|format(results.pay15) }}</td>
         <td>${{ '%.2f'|format(results.pay18) }}</td>
       </tr>

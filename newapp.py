@@ -77,7 +77,7 @@ def payroll():
         start_txt = request.form.get("start", "").strip()
         end_txt   = request.form.get("end", "").strip()
         cash_txt  = request.form.get("cash_card_claim", "").strip()
-        erp_txt   = request.form.get("erp_claim", "").strip()
+        taxi_txt  = request.form.get("taxi_claim", "").strip()
 
         hrs = hours_between(start_txt, end_txt)
         if start_txt or end_txt:
@@ -91,23 +91,23 @@ def payroll():
             hrs = 0.0
 
         cash = parse_money(cash_txt)
-        erp  = parse_money(erp_txt)
+        taxi = parse_money(taxi_txt)
 
         # Add-on claims to both pay calculations
-        pay15 = round(hrs * 15 + cash + erp, 2)
-        pay18 = round(hrs * 18 + cash + erp, 2)
+        pay15 = round(hrs * 15 + cash + taxi, 2)
+        pay18 = round(hrs * 18 + cash + taxi, 2)
 
         # Package results (single subject)
         results = {
-            "subject": "Subject 1",
-            "start": start_txt,
-            "end": end_txt,
-            "hours": hrs,
-            "cash": round(cash, 2),
-            "erp": round(erp, 2),
-            "pay15": pay15,
-            "pay18": pay18,
-        }
+        "subject": "Subject 1",
+        "start": start_txt,
+        "end": end_txt,
+        "hours": hrs,
+        "cash": round(cash, 2),
+        "taxi": round(taxi, 2),
+        "pay15": pay15,
+        "pay18": pay18,
+}
 
     return render_template("payroll.html", results=results, errors=errors)
 
