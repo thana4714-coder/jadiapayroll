@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from datetime import datetime
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return redirect(url_for("payroll"))  # redirects "/" to "/payroll"
+    return redirect(url_for("payroll"))  # use the payroll route below
 
 # --- Robust time parsing -----------------------------------------------
 def parse_time(text: str):
