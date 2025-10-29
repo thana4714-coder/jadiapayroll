@@ -80,3 +80,6 @@ def payroll():
 if __name__ == "__main__":
     # open http://127.0.0.1:5001/payroll
     app.run(debug=True, port=5001)
+@app.route("/ping")
+def ping():
+    return "OK", 200
